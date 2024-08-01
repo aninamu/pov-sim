@@ -7,8 +7,8 @@ Swagger(app)
 AIRLINES = ["AA", "UA", "DL"]
 
 @app.route("/")
-def index():
-    """Hello world endpoint
+def home():
+    """No-op home endpoint
     ---
     responses:
       200:
