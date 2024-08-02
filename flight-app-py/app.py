@@ -25,6 +25,11 @@ meter_provider = MeterProvider(metric_readers=[
 ])
 set_meter_provider(meter_provider)
 
+# Custom metrics
+meter = get_meter_provider().get_meter('custom_meter')
+counter = meter.create_counter('home_counter')
+histogram = meter.create_histogram('flights_histogram')
+
 FlaskInstrumentor().instrument_app(app)
 
 AIRLINES = ["AA", "UA", "DL"]
@@ -37,8 +42,8 @@ def home():
       200:
         description: Returns ok
     """
+    counter.add(1)
     return jsonify({"message": "ok"})
-
 
 @app.route("/airlines/<err>")
 def get_airlines(err=None):
@@ -81,6 +86,7 @@ def get_flights(airline, err=None):
       raise Exception("Raise test exception")
     with tracer.start_as_current_span('get_random_int'):
       random_int = get_random_int(100, 999)
+    histogram.record(random_int)
     return jsonify({airline: [random_int]})
 
 if __name__ == "__main__":
