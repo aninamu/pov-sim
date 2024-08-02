@@ -2,6 +2,9 @@ from flasgger import Swagger
 from flask import Flask, jsonify
 from opentelemetry import trace
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from opentelemetry.metrics import get_meter_provider, set_meter_provider
+from opentelemetry.sdk.metrics import MeterProvider
+from opentelemetry.sdk.metrics.export import ConsoleMetricExporter, PeriodicExportingMetricReader
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
 from opentelemetry.trace import set_tracer_provider
@@ -10,10 +13,18 @@ from utils import get_random_int
 app = Flask(__name__)
 Swagger(app)
 
+# Instrument traces
 tracer = trace.get_tracer(__name__)
 tracer_provider = TracerProvider()
 tracer_provider.add_span_processor(BatchSpanProcessor(ConsoleSpanExporter()))
 set_tracer_provider(tracer_provider)
+
+# Instrument metrics
+meter_provider = MeterProvider(metric_readers=[
+    PeriodicExportingMetricReader(ConsoleMetricExporter(), export_interval_millis=5000)
+])
+set_meter_provider(meter_provider)
+
 FlaskInstrumentor().instrument_app(app)
 
 AIRLINES = ["AA", "UA", "DL"]
