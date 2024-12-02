@@ -1,7 +1,7 @@
 version: '1'
 services:
-  flight-app-py:
-    build:
-      context: ./flight-app-py
+  flights:
+    build: 
+      context: ./flights
     ports:
       - "5001:5001"

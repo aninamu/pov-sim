@@ -1,20 +1,14 @@
-# 🚀 POV Flight Simulator 🚀
+# 🚀 PoV Flight Simulator 🚀
 
-Welcome to the POV Flight Simulator.
+Welcome to the PoV Flight Simulator.
 
 This repo holds the starting points for you to complete the assigned tasks.
-
-# Links
-
-- [POV Sim spreadsheet](https://docs.google.com/spreadsheets/d/1NjyNKgT0HVhAmHKodApmUdZshkA_ccwRApL3aE1Hw8M/edit?gid=2099201327#gid=2099201327)
 
 # About
 
 Included in this repo are uninstrumented sample applications that serve as starting points for you to add instrumentation as specified in the instructions of select tasks.
 
-The following applications, which are configured to run in Docker containers, expose identical API interfaces but are implemented in different languages:
-- `flight-app-js` - Express.js backend application
-- `flight-app-py` - Python Flask backend application
+- `flights` - Python Flask backend application
 
 # Getting Up and Running
 
@@ -27,32 +21,9 @@ The following applications, which are configured to run in Docker containers, ex
 git clone https://github.com/aninamu/pov-sim.git
 ```
 
-## Running flight-app-js
+## Running flights
 
-From the `flight-app-js` directory:
-
-Build the app
-```
-make build
-```
-
-Run the app
-```
-make run
-```
-
-Alternatively, use a single command to both build and run the app:
-```
-make start
-```
-
-The app should now be up and running at http://localhost:3000/
-
-Navigate to http://localhost:3000/api-docs/ to view the API interface and make requests
-
-## Running flight-app-py
-
-From the `flight-app-py` directory:
+From the `flights` directory:
 
 Build the app
 ```
@@ -69,9 +40,9 @@ Alternatively, use a single command to both build and run the app:
 make start
 ```
 
-The app should now be up and running at http://127.0.0.1:5000/
+The app should now be up and running at http://127.0.0.1:5001/
 
-Navigate to http://127.0.0.1:5000/apidocs/ to view the API interface and make requests
+Navigate to http://127.0.0.1:5001/apidocs/ to view the API interface and make requests
 
 ## Cleanup
 
@@ -87,18 +58,16 @@ To remove a container, run the following command from the app root:
 make clean
 ```
 
-## Running both apps at once (Recommended)
+## Running all apps at once
 
 From the project root:
 
-Run the apps
+Run all the services
 ```
 make up
 ```
 
-- The Express app will run on http://localhost:3000/ with Swagger docs at http://localhost:3000/api-docs/
-
-- The Flask app will run on http://127.0.0.1:5000/ with Swagger docs at http://127.0.0.1:5000/apidocs/
+- The `flights` app will run on http://127.0.0.1:5001/ with Swagger docs at http://127.0.0.1:5001/apidocs/
 
 
 Stop the running apps
