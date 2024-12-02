@@ -1,5 +1,5 @@
 APP_NAME = flight-app-py
-PORT = 5000
+PORT = 5001
 
 build:
 	docker build -t $(APP_NAME) .
