@@ -1,5 +1,10 @@
 version: '1'
 services:
+  airlines:
+    build: 
+      context: ./airlines
+    ports:
+      - "8080:8080"
   flights:
     build: 
       context: ./flights
