@@ -6,5 +6,9 @@ run:
 
 stop:
 	docker stop airlines
+	make clean
 
-.PHONY: build run stop
+clean:
+	docker container rm airlines
+
+.PHONY: build run stop clean
