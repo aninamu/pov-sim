@@ -1,14 +1,23 @@
 # 🚀 PoV Flight Simulator 🚀
 
-Welcome to the PoV Flight Simulator.
+Welcome to the PoV Flight Simulator
 
-This repo holds the starting points for you to complete the assigned tasks.
+- [About](#about)
+- [Getting Up and Running](#getting-up-and-running)
+  - [Prerequisites](#prerequisites)
+  - [Spin up all services](#spin-up-all-services)
+  - [Spin up the `airlines` service](#spin-up-the-airlines-service)
+  - [Spin up the `flights` service](#spin-up-the-flights-service)
 
 # About
 
-Included in this repo are uninstrumented sample applications that serve as starting points for you to add instrumentation as specified in the instructions of select tasks.
+This application comprises the following services:
 
-- `flights` - Python Flask backend application
+| Name | Description | Tech | Quick Link |
+| :---: | :---: | :---: | :---: |
+| `airlines` | Backend service | Java Spring Boot app | http://localhost:8080/swagger-ui/index.html#/ |
+| `flights` | Backend service | Python Flask app | http://localhost:5001/apidocs/ |
+|||
 
 # Getting Up and Running
 
@@ -16,12 +25,59 @@ Included in this repo are uninstrumented sample applications that serve as start
 
 - Install [Docker](https://docs.docker.com/engine/install/) on your local machine
 - Clone this repo to your local machine
-
 ```
 git clone https://github.com/aninamu/pov-sim.git
 ```
 
-## Running flights
+## Spin up all services
+
+From the project root, run all the services with the following command:
+```
+make up
+```
+
+- *The `airlines` service will run on http://localhost:8080/ with Swagger doc UI at http://localhost:8080/swagger-ui/index.html#/*
+- *The `flights` service will run on http://localhost:5001/ with Swagger doc UI at http://localhost:5001/apidocs/*
+
+
+Stop the services with the following command:
+```
+make down
+```
+
+Continue reading to see how to spin up an individual service as opposed to running all services at once.
+
+## Spin up the `airlines` service   
+
+From the `airlines` directory:
+
+Build the app
+```
+make build
+```
+
+Run the app
+```
+make run
+```
+*The `airlines` service will run on http://localhost:8080/ with Swagger doc UI at http://localhost:8080/swagger-ui/index.html#/*
+
+Alternatively, use a single command to both build and run the app
+```
+make start
+```
+
+Gracefully stop the app
+```
+make stop
+```
+
+Clean up the container(s)
+```
+make clean
+```
+
+## Spin up the `flights` service
 
 From the `flights` directory:
 
@@ -34,48 +90,24 @@ Run the app
 ```
 make run
 ```
+*The `flights` service will run on http://localhost:5001/ with Swagger doc UI at http://localhost:5001/apidocs/*
 
-Alternatively, use a single command to both build and run the app:
+Alternatively, use a single command to both build and run the app
 ```
 make start
 ```
 
-The app should now be up and running at http://127.0.0.1:5001/
-
-Navigate to http://127.0.0.1:5001/apidocs/ to view the API interface and make requests
-
-## Cleanup
-
-The Makefiles included with each application include additional commands to stop running containers and to clean up stopped containers.
-
-To stop a container, run the following command from the app root:
+Gracefully stop the app
 ```
 make stop
 ```
 
-To remove a container, run the following command from the app root:
+Clean up the container(s)
 ```
 make clean
 ```
 
-## Running all apps at once
-
-From the project root:
-
-Run all the services
-```
-make up
-```
-
-- The `flights` app will run on http://127.0.0.1:5001/ with Swagger docs at http://127.0.0.1:5001/apidocs/
-
-
-Stop the running apps
-```
-make down
-```
-
-# Batch Requests
+# TODO: Batch Requests
 
 This repo includes a shell script in `batch_requests.sh` that allows you to make batch requests to an endpoint to generate higher volumes of traffic.
 
