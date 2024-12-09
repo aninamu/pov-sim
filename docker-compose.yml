@@ -10,3 +10,8 @@ services:
       context: ./flights
     ports:
       - "5001:5001"
+  frontend:
+    build: 
+      context: ./frontend
+    ports:
+      - "3001:80"

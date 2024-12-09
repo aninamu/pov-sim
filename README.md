@@ -8,6 +8,7 @@ Welcome to the PoV Flight Simulator
   - [Spin up all services](#spin-up-all-services)
   - [Spin up the `airlines` service](#spin-up-the-airlines-service)
   - [Spin up the `flights` service](#spin-up-the-flights-service)
+  - [Spin up the `frontend` service](#spin-up-the-frontend-service)
 - [Simulate traffic to the services](#simulate-traffic-to-the-services)
   - [airlines-loadgen](#running-airlines-loadgen)
   - [flights-loadgen](#running-flights-loadgen)
@@ -20,6 +21,7 @@ This application comprises the following services:
 | :---: | :---: | :---: | :---: |
 | `airlines` | Backend service | Java Spring Boot app | http://localhost:8080/swagger-ui/index.html#/ |
 | `flights` | Backend service | Python Flask app | http://localhost:5001/apidocs/ |
+| `frontend` | Frontend service | React app | http://localhost:3001/ |
 |||
 
 # Getting Up and Running
@@ -41,6 +43,7 @@ make up
 
 - *The `airlines` service will run on http://localhost:8080/ with Swagger doc UI at http://localhost:8080/swagger-ui/index.html#/*
 - *The `flights` service will run on http://localhost:5001/ with Swagger doc UI at http://localhost:5001/apidocs/*
+- *The `frontend` service will run on http://localhost:3001/*
 
 Stop the services with the following command:
 ```
@@ -107,6 +110,26 @@ make stop
 Clean up the container(s)
 ```
 make clean
+```
+
+## Spin up the `frontend` service
+
+From the `frontend` directory:
+
+Build the app
+```
+make build
+```
+
+Run the app
+```
+make run
+```
+*The `frontend` service will run on http://localhost:3001/*
+
+Gracefully stop the app
+```
+make stop
 ```
 
 # Simulate traffic to the services
