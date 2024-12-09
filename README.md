@@ -9,6 +9,7 @@ Welcome to the PoV Flight Simulator
   - [Spin up the `airlines` service](#spin-up-the-airlines-service)
   - [Spin up the `flights` service](#spin-up-the-flights-service)
 - [Simulate traffic to the services](#simulate-traffic-to-the-services)
+  - [airlines-loadgen](#running-airlines-loadgen)
   - [flights-loadgen](#running-flights-loadgen)
 
 # About
@@ -112,7 +113,37 @@ make clean
 
 The `scripts/` directory includes load generator scripts you can use to make batch sets of requests to your running services.
 
+- The `airlines-loadgen.sh` script generates load to the `airlines` service
 - The `flights-loadgen.sh` script generates load to the `flights` service
+
+## Running airlines-loadgen
+
+*Note: You may need to run the following command to add the proper permissions to execute the script*
+```
+chmod +x airlines-loadgen.sh
+```
+
+The `airlines-loadgen` script makes API requests to the `airlines` service. You can optionally specify the following parameters to the script:
+- An error rate `-e` to force the requests to the service to error out at that rate
+- A duration `-d` to specify the number of seconds the script should run
+- A base URL `-b` if you are running the service on a port other than the default
+
+From the `scripts/` directory:
+
+- Run the script with default params
+  ```
+  ./airlines-loadgen.sh
+  ```
+
+- View usage
+  ```
+  ./airlines-loadgen.sh -h
+  ```
+
+- Example: Run the script for 120 seconds generating a 25% error rate within the `airlines` service
+  ```
+  ./airlines-loadgen.sh -e 0.25 -d 120
+  ```
 
 ## Running flights-loadgen
 

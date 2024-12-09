@@ -2,49 +2,31 @@
 
 # USAGE
 # 
-# This script allows you to make batch requests to the flights service
+# This script allows you to make batch requests to the airlines service
 #
-# Note: You may need to run `chmod +x flights-loadgen.sh` in order to execute the script
+# Note: You may need to run `chmod +x airlines-loadgen.sh` in order to execute the script
 #
 # To run the script:
-# ./flights-loadgen.sh
+# ./airlines-loadgen.sh
 #
 # Specify a 25% error rate, 30 sec duration, and base URL:
-# ./flights-loadgen.sh -e 0.25 -d 30 -b http://localhost:5001
+# ./airlines-loadgen.sh -e 0.25 -d 30 -b http://localhost:8081
 #
 # Run help command to see details and usage options:
-# ./flights-loadgen.sh -h
+# ./airlines-loadgen.sh -h
 
 LINE_SEPARATOR="----------------------------------------------------------"
 
 DEFAULT_ERROR_RATE=0
 DEFAULT_DURATION=60
-DEFAULT_BASE_URL="http://localhost:5001"
+DEFAULT_BASE_URL="http://localhost:8080"
 
 BASIC_GET_ENDPOINTS=(
     "/"
     "/health"
 )
-GET_FLIGHT_ENDPOINTS=(
-    "/flights/AA"
-    "/flights/UL"
-    "/flights/DA"
-)
-GET_FLIGHT_RAISE_QUERY_PARAM="?raise=500"
-POST_FLIGHT_ENDPOINT="/flight"
-POST_FLIGHT_PASSENGERS=(
-    "John%20Doe"
-    "Jane%20Doe"
-)
-POST_FLIGHT_FLIGHT_NUMS=(
-    "101"
-    "202"
-    "303"
-    "404"
-    "505"
-    "606"
-)
-POST_FLIGHT_RAISE_QUERY_PARAM="&raise=500"
+GET_AIRLINES_ENDPOINT="/airlines"
+GET_AIRLINES_RAISE_QUERY_PARAM="?raise=true"
 
 usage() {
     echo "Usage: $0 [-e error_rate] [-d duration_secs] [-b base_url]"
@@ -95,35 +77,20 @@ run_loadgen() {
             ENDPOINT="$BASE_URL$i"
             echo "\nSending GET request: $ENDPOINT..."
             curl $ENDPOINT
+            echo "\n"
         done
 
-        # Ping GET flights
-        for path in "${GET_FLIGHT_ENDPOINTS[@]}"; do
-            # Invoke error per error rate
-            QUERY_PARAMS=""
-            RAND_DEC=($echo "0.$((RANDOM % 100))")
-            if (( $(echo "$RAND_DEC < $ERROR_RATE" | bc -l) )); then
-                QUERY_PARAMS=$GET_FLIGHT_RAISE_QUERY_PARAM
-            fi
-            ENDPOINT="$BASE_URL$path$QUERY_PARAMS"
-            echo "\nSending GET request: $ENDPOINT"
-            curl $ENDPOINT
-        done
-
-        # Ping POST flight
-        for passenger in "${POST_FLIGHT_PASSENGERS[@]}"; do
-            for flight_num in "${POST_FLIGHT_FLIGHT_NUMS[@]}"; do
-                # Invoke error per error rate
-                QUERY_PARAMS="?passenger_name=${passenger}&flight_num=${flight_num}"
-                RAND_DEC=($echo "0.$((RANDOM % 100))")
-                if (( $(echo "$RAND_DEC < $ERROR_RATE" | bc -l) )); then
-                    QUERY_PARAMS="${QUERY_PARAMS}${POST_FLIGHT_RAISE_QUERY_PARAM}"
-                fi
-                ENDPOINT="$BASE_URL$POST_FLIGHT_ENDPOINT$QUERY_PARAMS"
-                echo "\nSending POST request: $ENDPOINT"
-                curl -X POST $ENDPOINT
-            done
-        done
+        # Ping GET airlines
+        # Invoke error per error rate
+        QUERY_PARAMS=""
+        RAND_DEC=($echo "0.$((RANDOM % 100))")
+        if (( $(echo "$RAND_DEC < $ERROR_RATE" | bc -l) )); then
+            QUERY_PARAMS=$GET_AIRLINES_RAISE_QUERY_PARAM
+        fi
+        ENDPOINT="$BASE_URL$GET_AIRLINES_ENDPOINT$QUERY_PARAMS"
+        echo "\nSending GET request: $ENDPOINT"
+        curl $ENDPOINT
+        echo "\n"
 
         sleep 1
     done
