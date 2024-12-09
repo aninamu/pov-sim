@@ -8,6 +8,8 @@ Welcome to the PoV Flight Simulator
   - [Spin up all services](#spin-up-all-services)
   - [Spin up the `airlines` service](#spin-up-the-airlines-service)
   - [Spin up the `flights` service](#spin-up-the-flights-service)
+- [Simulate traffic to the services](#simulate-traffic-to-the-services)
+  - [flights-loadgen](#running-flights-loadgen)
 
 # About
 
@@ -38,7 +40,6 @@ make up
 
 - *The `airlines` service will run on http://localhost:8080/ with Swagger doc UI at http://localhost:8080/swagger-ui/index.html#/*
 - *The `flights` service will run on http://localhost:5001/ with Swagger doc UI at http://localhost:5001/apidocs/*
-
 
 Stop the services with the following command:
 ```
@@ -107,43 +108,40 @@ Clean up the container(s)
 make clean
 ```
 
-# TODO: Batch Requests
+# Simulate traffic to the services
 
-This repo includes a shell script in `batch_requests.sh` that allows you to make batch requests to an endpoint to generate higher volumes of traffic.
+The `scripts/` directory includes load generator scripts you can use to make batch sets of requests to your running services.
 
-Note: You may need to run the following command to make the script executable:
-```
-chmod +x batch_requests.sh
-```
+- The `flights-loadgen.sh` script generates load to the `flights` service
 
-## Usage
-Running the script entails executing a shell command of this format from the base root of the repo:
+## Running flights-loadgen
+
+*Note: You may need to run the following command to add the proper permissions to execute the script*
 ```
-./batch_requests.sh <endpoint> <num_requests>
+chmod +x flights-loadgen.sh
 ```
 
-### Example - Ping GET airlines endpoint 100 times
-```
-./batch_requests.sh http://localhost:3000/airlines 100
-```
+The `flights-loadgen` script makes API requests to the `flights` service. You can optionally specify the following parameters to the script:
+- An error rate `-e` to force the requests to the service to error out at that rate
+- A duration `-d` to specify the number of seconds the script should run
+- A base URL `-b` if you are running the service on a port other than the default
 
-### Example - Trigger error on GET airlines endpoint 100 times
-```
-./batch_requests.sh http://localhost:3000/airlines/raise 100
-```
+From the `scripts/` directory:
 
-### Example - Ping GET flights endpoint 100 times:
-```
-./batch_requests.sh http://localhost:3000/flights/AA 100
-```
+- Run the script with default params
+  ```
+  ./flights-loadgen.sh
+  ```
 
-### Example - Trigger error on GET flights endpoint 100 times
-```
-./batch_requests.sh http://localhost:3000/flights/AA/raise 100
-```
+- View usage
+  ```
+  ./flights-loadgen.sh -h
+  ```
 
-_Note: These sample commands assume the application you wish to ping is running locally at http://localhost:3000. Replace with the proper value as needed._
-
+- Example: Run the script for 120 seconds generating a 25% error rate within the `flights` service
+  ```
+  ./flights-loadgen.sh -e 0.25 -d 120
+  ```
 
 # Deploying a Helm chart
 
