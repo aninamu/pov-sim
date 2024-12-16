@@ -1,5 +1,6 @@
 .Navigation {
-    text-decoration: none;
+    margin: 8vh;
+    font-size: calc(6px + 2vmin);
 }
 
 .Navigation-ul {

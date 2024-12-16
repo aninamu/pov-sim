@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Home = () => {
-  return <h1>🛫 Welcome to the PoV Simulator 🛬</h1>
+  return <div>🛫 Welcome to the PoV Simulator 🛬</div>
 }
 
 export default Home;
