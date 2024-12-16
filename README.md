@@ -24,6 +24,9 @@ This application comprises the following services:
 | `frontend` | Frontend service | React app | http://localhost:3001/ |
 |||
 
+The `frontend` service is a simple React app that make API requests to both the `airlines` and `flights` services.
+![alt text](resources/povsim.png)
+
 # Getting Up and Running
 
 ## Prerequisites
