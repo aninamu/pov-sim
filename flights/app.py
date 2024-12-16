@@ -1,9 +1,11 @@
 from flasgger import Swagger
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from utils import get_random_int
 
 app = Flask(__name__)
 Swagger(app)
+CORS(app)
 
 @app.route('/health', methods=['GET'])
 def health():

@@ -42,3 +42,18 @@
     padding: 0 25px;
   }
 }
+
+.should-raise-section {
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    font-size: 18px;
+}
+
+.should-raise-checkbox {
+    margin-left: 8px;
+}
+
+.should-raise-checkbox:hover {
+    cursor: pointer;
+}
