@@ -1,11 +1,13 @@
 package com.example.springboot;
 
-import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000") // Allow requests from React app
 public class AirlinesController {
 	private static String[] airlines = {"AA", "DL", "UA"};
 
