@@ -1,6 +1,6 @@
 IMAGE_NAME := react-app
 CONTAINER_NAME := react-app-container
-HOST_PORT := 3001
+HOST_PORT := 3000
 CONTAINER_PORT := 80
 
 .PHONY: build
